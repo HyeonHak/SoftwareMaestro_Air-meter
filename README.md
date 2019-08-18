@@ -1,4 +1,4 @@
-# 숨좀쉬자(PleaseBreath) - Arduino
+# 숨좀쉬자(PleaseBreath) - Arduino (In / Out Air Quality Sensor)
 > 공기 청정 기기를 제어하여 실내 환경을 쾌적하게 만드는 AI　공기 관리 솔루션
 
 ![pb](./image/pb.png)
