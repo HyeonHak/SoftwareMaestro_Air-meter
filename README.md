@@ -22,7 +22,7 @@ Compile with Arduino IDE
 
 [https://github.com/pilgyumin](https://github.com/pilgyumin/)
 
-안유진 - auj97@naver.com
+안유진 - ujahnn@gmail.com
 
 [https://github.com/ahnyujin](https://github.com/ahnyujin/)
 
