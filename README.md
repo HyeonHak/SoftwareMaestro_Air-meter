@@ -15,7 +15,7 @@ Compile with Arduino IDE
 
 * 0.0.1
     * 작업 진행 중
-
+    * 미세먼지 센서 + 온습도 센서
 ## 개발자
 
 민필규 – pilgyu147@gmail.com
