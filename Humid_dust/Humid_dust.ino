@@ -12,7 +12,7 @@ void setup() {
   // initialize digital pin LED_BUILTIN as an output. 
    
   pinMode(LED_BUILTIN, OUTPUT); 
-  Serial.begin(115200); 
+  Serial.begin(9600); 
   mySerial.begin(9600); 
   Wire.begin();
   hdcSensor.turnOnHeater(true);
