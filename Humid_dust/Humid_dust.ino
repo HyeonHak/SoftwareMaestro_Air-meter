@@ -24,7 +24,7 @@ void setup() {
 
 void loop() { 
   
-  if(mySerial.available()>=32){ 
+  if(mySerial.available()>=32){
 
     for(int j=0; j<32 ; j++){ 
       pms[j]=mySerial.read(); 

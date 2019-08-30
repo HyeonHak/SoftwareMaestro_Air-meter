@@ -12,9 +12,11 @@
 #include <HDC1080.h>
 // Emulate Serial1 on pins 6/7 if not present
 #ifndef HAVE_HWSERIAL1
-#include <SoftwareSerial.h>
+#include "SoftwareSerial.h"
+
 SoftwareSerial Serial1(2, 3); // RX, TX
-SoftwareSerial mySerial(5, 11);
+SoftwareSerial mySerial(5, 11); //RX, TX
+
 #endif
 
 char ssid[] = "pleasebreath";            // your network SSID (name)
@@ -46,7 +48,10 @@ void setup()
   Serial1.begin(9600);
   // initialize ESP module
   WiFi.init(&Serial1);
-  
+
+  mySerial.begin(9600);
+
+  Serial1.listen();
   // check for the presence of the shield
   if (WiFi.status() == WL_NO_SHIELD) {
     Serial.println("WiFi shield not present");
@@ -65,7 +70,7 @@ void setup()
   // you're connected now, so print out the data
   Serial.println("You're connected to the network");
   
-  printWifiStatus();
+  //printWifiStatus();
 
   Serial.println();
   Serial.println("Starting connection to server...");
@@ -80,8 +85,6 @@ void setup()
     //client.println("Connection: close");
     client.println();
   }
-
-  
 }
 
 void loop()
@@ -93,11 +96,63 @@ void loop()
     Serial.write(c);
   }*/
 
-  if(client.connected()){
-    for(int j=0; j<32 ; j++){ 
+  mySerial.listen();
+  if(mySerial.available()>=32){
+     for(int j=0; j<32 ; j++){ 
       pms[j]=mySerial.read(); 
-          } 
-         
+    } 
+     
+    int PM1_0=(pms[10]<<8)  | pms[11]; 
+    int PM2_5=(pms[12]<<8)  | pms[13];
+    int PM10 =(pms[14]<<8)  | pms[15];
+    
+    Serial.print("PM1.0 : "); 
+    Serial.print(PM1_0);
+    Serial.print(" PM2.5 : "); 
+    Serial.print(PM2_5);
+    Serial.print(" PM1.0 : "); 
+    Serial.println(PM10);
+    tf = hdcSensor.getTemperatureHumidity(tc, h);
+  
+  
+    Serial.print(tc);
+    Serial.print("C ");
+    Serial.print(h);
+    Serial.println("H");  
+
+    
+    Serial1.listen();
+      /*while ( status != WL_CONNECTED) {
+    Serial.print("Attempting to connect to WPA SSID: ");
+    Serial.println(ssid);
+    
+    // Connect to WPA/WPA2 network
+    status = WiFi.begin(ssid, pass);
+  }*/
+  
+    String str = "GET http://192.168.0.9:3000/?tempOuter=";
+    str+=tc;
+    str+="humidOuter=";
+    str+=h;
+    str+="pm10Outer=";
+    str+=PM10;
+    str+="pm25Outer=";
+    str+=PM2_5;
+    
+    
+    client.println(str);
+    client.println();
+    delay(1000);
+  }
+  
+     /* if(client.connected()){
+        
+        if(mySerial.available() >= 32){
+         for(int j=0; j<32 ; j++){ 
+            pms[j]=mySerial.read(); 
+         } 
+        }
+        
         int PM1_0=(pms[10]<<8)  | pms[11]; 
         int PM2_5=(pms[12]<<8)  | pms[13];
         int PM10 =(pms[14]<<8)  | pms[15];
@@ -111,10 +166,11 @@ void loop()
         tf = hdcSensor.getTemperatureHumidity(tc, h);
       
       
-        Serial.print(tc);
-        Serial.print("C ");
-        Serial.print(h);
-        Serial.println("H");
+    Serial.print(tc);
+    Serial.print("C ");
+    Serial.print(h);
+    Serial.println("H");
+
     String str = "GET http://192.168.0.9:3000/?tempOuter=";
     str+=tc;
     str+="humidOuter=";
@@ -123,10 +179,12 @@ void loop()
     str+=PM10;
     str+="pm25Outer=";
     str+=PM2_5;
-    client.println(str);
     
+    client.println(str);
     client.println();
-  }
+    
+}
+  
   
   // if the server's disconnected, stop the client
   if (!client.connected()) {
@@ -137,6 +195,7 @@ void loop()
     // do nothing forevermore
     while (true);
   }
+  */
 }
 
 
