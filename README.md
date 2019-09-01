@@ -17,6 +17,7 @@ https://blog.naver.com/roboholic84/221261124179
 툴 -> 프로그래머 USBasp로 되어 있는지 확인
 AT+UART_DEF=9600,8,1,0,0를 시리얼에서 입력하고 mySerial(9600)으로 변경할 것.
 이미 9600으로 되어있다면 115200으로 변경하고 컴파일 후 실행
+와이파이 모드 변경 : AT+CWMODE=1
 와이파이 목록 명령어 : AT+CWLAP
 와이파이 접속 명령어 : AT+CWJAP="SSID","PASS"
 
