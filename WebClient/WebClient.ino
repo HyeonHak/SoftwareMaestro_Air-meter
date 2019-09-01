@@ -70,7 +70,7 @@ void setup()
   // you're connected now, so print out the data
   Serial.println("You're connected to the network");
   
-  //printWifiStatus();
+  printWifiStatus();
 
   Serial.println();
   Serial.println("Starting connection to server...");
