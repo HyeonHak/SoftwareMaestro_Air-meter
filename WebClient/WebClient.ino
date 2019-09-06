@@ -80,7 +80,7 @@ void setup()
     Serial.println("Connected to server");
     // Make a HTTP request
     //client.println("GET /asciilogo.txt HTTP/1.1");
-    client.println("GET http://192.168.0.9:3000/?tempOuter=777");
+    client.println("GET http://192.168.0.9:3000/insertdb?tempOuter=777");
     //client.println("Host: arduino.cc");
     //client.println("Connection: close");
     client.println();
@@ -130,7 +130,7 @@ void loop()
     status = WiFi.begin(ssid, pass);
   }*/
   
-    String str = "GET http://192.168.0.9:3000/?tempOuter=";
+    String str = "GET http://192.168.0.9:3000/insertdb?tempOuter=";
     str+=tc;
     str+="humidOuter=";
     str+=h;
@@ -171,7 +171,7 @@ void loop()
     Serial.print(h);
     Serial.println("H");
 
-    String str = "GET http://192.168.0.9:3000/?tempOuter=";
+    String str = "GET http://192.168.0.9:3000/insertdb?tempOuter=";
     str+=tc;
     str+="humidOuter=";
     str+=h;
