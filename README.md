@@ -30,7 +30,7 @@ AT+UART_DEF=9600,8,1,0,0를 시리얼에서 입력하고 mySerial(9600)으로 �
     * 와이파이 모듈 연결 확인
 * 0.1.0
     * 와이파이 Time Out 문제 해결
-        * 와이파이 Repeating 가능하도록 수정
+        * Client Repeating 가능하도록 수정
     
 ## 개발자
 
