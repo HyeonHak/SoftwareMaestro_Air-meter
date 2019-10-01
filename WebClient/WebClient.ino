@@ -22,7 +22,7 @@ char ssid[] = "pleasebreath";            // your network SSID (name)
 char pass[] = "tnawhatnlwk1";        // your network password
 int status = WL_IDLE_STATUS;     // the Wifi radio's status
 
-char server[] = "192.168.0.2";
+char server[] = "192.168.0.9";
 
 unsigned long lastConnectionTime = 0;         // last time you connected to the server, in milliseconds
 const unsigned long postingInterval = 10000L; // delay between updates, in milliseconds
@@ -85,11 +85,12 @@ void loop()
 
   // if 10 seconds have passed since your last connection,
   // then connect again and send data
-
+  
   
   mySerial.listen();
   
   if (millis() - lastConnectionTime > postingInterval) {
+    
   if(mySerial.available()>=32){
      for(int j=0; j<32 ; j++){ 
       pms[j]=mySerial.read(); 
@@ -117,7 +118,7 @@ void loop()
 
     Serial1.listen();
     
-  String str = "GET http://192.168.0.2:3000?tempInner=";
+  String str = "GET http://192.168.0.9:3000?tempInner=";
     str+=tc;
     str+="&humidInner=";
     str+=h;
