@@ -31,6 +31,9 @@ AT+UART_DEF=9600,8,1,0,0를 시리얼에서 입력하고 mySerial(9600)으로 �
 * 0.1.0
     * 와이파이 Time Out 문제 해결
         * Client Repeating 가능하도록 수정
+* 0.2.0
+    * 미세먼지, 온습도, Voc 센서
+    * 각 센서코드는 Hyeon Branch
     
 ## 개발자
 
