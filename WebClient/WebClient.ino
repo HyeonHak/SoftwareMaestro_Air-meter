@@ -8,13 +8,25 @@
  For more details see: http://yaab-arduino.blogspot.com/p/wifiesp.html
 */
 
+
+/* VOC Sensor
+ * 
+ *   
+  3.3V to 3.3V pin
+  GND to GND pin
+  SDA to A4
+  SCL to A5
+  
+ */
 #include "WiFiEsp.h"
+
 #include <Wire.h>
 #include <HDC1080.h>
 // Emulate Serial1 on pins 6/7 if not present
 #ifndef HAVE_HWSERIAL1
 #include "SoftwareSerial.h"
 SoftwareSerial Serial1(2, 3); // RX, TX
+
 SoftwareSerial mySerial(5, 11); //RX, TX
 #endif
 
@@ -34,6 +46,10 @@ unsigned char  pms[32];
 // Initialize the Ethernet client object
 WiFiEspClient client;
 
+#include "SparkFunCCS811.h"
+#define CCS811_ADDR 0x5B
+CCS811 mySensor(CCS811_ADDR);
+
 void setup()
 {
  Wire.begin();
@@ -49,6 +65,16 @@ void setup()
   // initialize ESP module
   WiFi.init(&Serial1);
 
+  //It is recommended to check return status on .begin(), but it is not
+  //required.
+  /*CCS811Core::status returnCode = mySensor.begin();
+    if (returnCode != CCS811Core::SENSOR_SUCCESS)
+    {
+      Serial.println(".begin() returned with an error.");
+      while (1); //Hang if there was a problem.
+    }*/
+
+  
   mySerial.begin(9600);
 
   Serial1.listen();
@@ -96,26 +122,14 @@ void loop()
       pms[j]=mySerial.read(); 
     } 
 
-     int PM1_0=(pms[10]<<8)  | pms[11]; 
+    int PM1_0=(pms[10]<<8)  | pms[11]; 
     int PM2_5=(pms[12]<<8)  | pms[13];
     int PM10 =(pms[14]<<8)  | pms[15];
-    /*
-    Serial.print("PM1.0 : "); 
-    Serial.print(PM1_0);
-    Serial.print(" PM2.5 : "); 
-    Serial.print(PM2_5);
-    Serial.print(" PM1.0 : "); 
-    Serial.println(PM10);
-    */
+    
     tf = hdcSensor.getTemperatureHumidity(tc, h);
-  
-  /*
-    Serial.print(tc);
-    Serial.print("C ");
-    Serial.print(h);
-    Serial.println("H");
-    */
-
+    
+    mySensor.readAlgorithmResults();
+    int VOC = mySensor.getTVOC();
     Serial1.listen();
     
   String str = "GET http://192.168.0.9:3000?tempInner=";
@@ -126,8 +140,11 @@ void loop()
     str+=PM10;
     str+="&pm25Inner=";
     str+=PM2_5;
-    
+    str+="&vocInner=";
+    str+=VOC;
+    Serial.println(str);
     httpRequest(str);
+    
   }
   }
 }
