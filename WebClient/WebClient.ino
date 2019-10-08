@@ -130,6 +130,7 @@ void loop()
     
     mySensor.readAlgorithmResults();
     int VOC = mySensor.getTVOC();
+    int CO2 = mySensor.getCO2();
     Serial1.listen();
     
   String str = "GET http://192.168.0.9:3000?tempInner=";
@@ -142,6 +143,8 @@ void loop()
     str+=PM2_5;
     str+="&vocInner=";
     str+=VOC;
+    str+="&co2=";
+    str+=CO2;
     Serial.println(str);
     httpRequest(str);
     
