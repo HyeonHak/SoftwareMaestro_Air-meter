@@ -133,17 +133,17 @@ void loop()
     int CO2 = mySensor.getCO2();
     Serial1.listen();
     
-  String str = "GET http://192.168.0.9:3000?tempInner=";
+  String str = "GET http://192.168.0.9:3000?tempOuter=";
     str+=tc;
-    str+="&humidInner=";
+    str+="&humidOuter=";
     str+=h;
-    str+="&pm10Inner=";
+    str+="&pm10Outer=";
     str+=PM10;
-    str+="&pm25Inner=";
+    str+="&pm25Outer=";
     str+=PM2_5;
-    str+="&vocInner=";
+    str+="&vocOuter=";
     str+=VOC;
-    str+="&co2=";
+    str+="&co2Outer=";
     str+=CO2;
     Serial.println(str);
     httpRequest(str);
