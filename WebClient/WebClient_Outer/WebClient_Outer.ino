@@ -104,9 +104,14 @@ void setup()
 
   Serial.println("You're connected to the network");
   
-
+<<<<<<< HEAD:web_client/web_client_Outer/web_client_Outer.ino
   print_wifi_status();
+=======
+  printWifiStatus();
 
+  
+  
+>>>>>>> Hyeon:WebClient/WebClient_Outer/WebClient_Outer.ino
 }
 
 void loop()
@@ -152,17 +157,17 @@ void loop()
     
     Serial1.listen();
     
-  String str = "GET http://192.168.0.9:3000?tempInner=";
+  String str = "GET http://192.168.0.9:3000?tempOuter=";
     str+=tc;
-    str+="&humidInner=";
+    str+="&humidOuter=";
     str+=h;
-    str+="&pm10Inner=";
+    str+="&pm10Outer=";
     str+=PM10;
-    str+="&pm25Inner=";
+    str+="&pm25Outer=";
     str+=PM2_5;
-    str+="&vocInner=";
+    str+="&vocOuter=";
     str+=VOC;
-    str+="&co2Inner=";
+    str+="&co2Outer=";
     str+=CO2;
     Serial.println(str);
     httpRequest(str);

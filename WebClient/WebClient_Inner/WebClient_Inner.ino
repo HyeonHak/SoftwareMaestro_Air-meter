@@ -104,9 +104,14 @@ void setup()
 
   Serial.println("You're connected to the network");
   
-
+<<<<<<< HEAD:web_client/web_client_Inner/web_client_Inner.ino
   print_wifi_status();
+=======
+  printWifiStatus();
 
+  
+  
+>>>>>>> Hyeon:WebClient/WebClient_Inner/WebClient_Inner.ino
 }
 
 void loop()
