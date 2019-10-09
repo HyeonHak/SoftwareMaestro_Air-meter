@@ -57,6 +57,15 @@ void setup()
   hdcSensor.setTemperatureRes(HDC1080::T_RES_14);
   hdcSensor.setHumidityRes(HDC1080::H_RES_8);
   hdcSensor.updateConfigRegister();
+
+  //Voc & Co2 측정기 환경설정
+  CCS811Core::status returnCode = mySensor.begin();
+  if (returnCode != CCS811Core::SENSOR_SUCCESS)
+  {
+    Serial.println(".begin() returned with an error.");
+    while (1); //Hang if there was a problem.
+  }
+
   
   // initialize serial for debugging
   Serial.begin(9600);
@@ -96,6 +105,9 @@ void setup()
   Serial.println("You're connected to the network");
   
   printWifiStatus();
+
+  
+  
 }
 
 void loop()
@@ -125,12 +137,20 @@ void loop()
     int PM1_0=(pms[10]<<8)  | pms[11]; 
     int PM2_5=(pms[12]<<8)  | pms[13];
     int PM10 =(pms[14]<<8)  | pms[15];
+    uint16_t VOC;
+    uint16_t CO2;
     
     tf = hdcSensor.getTemperatureHumidity(tc, h);
+
+    while(1){
+      if(mySensor.dataAvailable()){
+        mySensor.readAlgorithmResults();
+        VOC = mySensor.getTVOC();
+        CO2 = mySensor.getCO2();
+        break;
+      }
+    }
     
-    mySensor.readAlgorithmResults();
-    int VOC = mySensor.getTVOC();
-    int CO2 = mySensor.getCO2();
     Serial1.listen();
     
   String str = "GET http://192.168.0.9:3000?tempOuter=";
