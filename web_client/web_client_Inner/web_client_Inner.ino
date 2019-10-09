@@ -36,8 +36,8 @@ int status = WL_IDLE_STATUS;     // the Wifi radio's status
 
 char server[] = "192.168.0.9";
 
-unsigned long lastConnectionTime = 0;         // last time you connected to the server, in milliseconds
-const unsigned long postingInterval = 10000L; // delay between updates, in milliseconds
+unsigned long last_connection_time = 0;         // last time you connected to the server, in milliseconds
+const unsigned long posting_Interval = 10000L; // delay between updates, in milliseconds
 
 HDC1080 hdcSensor;
 float tc, tf, h;
@@ -95,7 +95,7 @@ void setup()
 
   Serial.println("You're connected to the network");
   
-  printWifiStatus();
+  print_wifi_status();
 }
 
 void loop()
@@ -115,7 +115,7 @@ void loop()
   
   mySerial.listen();
   
-  if (millis() - lastConnectionTime > postingInterval) {
+  if (millis() - last_connection_time > posting_Interval) {
     
   if(mySerial.available()>=32){
      for(int j=0; j<32 ; j++){ 
@@ -175,7 +175,7 @@ void httpRequest(String str)
     client.println();
 
     // note the time that the connection was made
-    lastConnectionTime = millis();
+    last_connection_time = millis();
   }
   else {
     // if you couldn't make a connection
@@ -184,7 +184,7 @@ void httpRequest(String str)
 }
 
 
-void printWifiStatus()
+void print_wifi_status()
 {
   // print the SSID of the network you're attached to
   Serial.print("SSID: ");
