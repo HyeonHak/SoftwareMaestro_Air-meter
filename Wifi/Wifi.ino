@@ -1,17 +1,17 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(2, 3); // RX, TX
+//SoftwareSerial mySerial(19,18); // RX, TX
 
 void setup() {
   Serial.begin(9600);
-  mySerial.begin(9600);//기본 통신 속도가 9600인 제품은 9600으로 수정해 주세요
+  Serial3.begin(9600);//기본 통신 속도가 9600인 제품은 9600으로 수정해 주세요
 }
 
 void loop() {
-  if (mySerial.available()) {
-    Serial.write(mySerial.read());
+  if (Serial3.available()) {
+    Serial.write(Serial3.read());
   }
   if (Serial.available()) {
-    mySerial.write(Serial.read());
+    Serial3.write(Serial.read());
   }
 }
