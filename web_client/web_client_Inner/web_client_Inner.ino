@@ -52,6 +52,7 @@ CCS811 mySensor(CCS811_ADDR);
 
 void setup()
 {
+  Serial.begin(9600);
  Wire.begin();
   hdcSensor.turnOnHeater(true);
   hdcSensor.setTemperatureRes(HDC1080::T_RES_14);
@@ -68,7 +69,7 @@ void setup()
 
   
   // initialize serial for debugging
-  Serial.begin(9600);
+  
   // initialize serial for ESP module
   Serial1.begin(9600);
   // initialize ESP module
@@ -128,6 +129,7 @@ void loop()
   
   if (millis() - last_connection_time > posting_Interval) {
     
+    
   if(mySerial.available()>=32){
      for(int j=0; j<32 ; j++){ 
       pms[j]=mySerial.read(); 
@@ -138,9 +140,9 @@ void loop()
     int PM10 =(pms[14]<<8)  | pms[15];
     uint16_t VOC;
     uint16_t CO2;
-    
+    Serial.println("HUmid..");
     tf = hdcSensor.getTemperatureHumidity(tc, h);
-
+    Serial.println("Voc...");
     while(1){
       if(mySensor.dataAvailable()){
         mySensor.readAlgorithmResults();
