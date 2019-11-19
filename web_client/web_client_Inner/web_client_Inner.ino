@@ -30,11 +30,11 @@ SoftwareSerial Serial1(2, 3); // RX, TX
 SoftwareSerial mySerial(5, 11); //RX, TX
 #endif
 
-char ssid[] = "pleasebreath";            // your network SSID (name)
+char ssid[] = "netis2G";            // your network SSID (name)
 char pass[] = "tnawhatnlwk1";        // your network password
 int status = WL_IDLE_STATUS;     // the Wifi radio's status
 
-char server[] = "192.168.0.9";
+char server[] = "192.168.1.3";
 
 unsigned long last_connection_time = 0;         // last time you connected to the server, in milliseconds
 const unsigned long posting_Interval = 10000L; // delay between updates, in milliseconds
@@ -152,7 +152,7 @@ void loop()
     
     Serial1.listen();
     
-  String str = "GET http://192.168.0.9:3000?tempInner=";
+  String str = "GET http://192.168.1.84:3000?tempInner=";
     str+=tc;
     str+="&humidInner=";
     str+=h;
