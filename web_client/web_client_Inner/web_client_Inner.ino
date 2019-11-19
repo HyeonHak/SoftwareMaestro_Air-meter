@@ -52,6 +52,7 @@ CCS811 mySensor(CCS811_ADDR);
 
 void setup()
 {
+  Serial.begin(9600);
  Wire.begin();
   hdcSensor.turnOnHeater(true);
   hdcSensor.setTemperatureRes(HDC1080::T_RES_14);
@@ -68,7 +69,7 @@ void setup()
 
   
   // initialize serial for debugging
-  Serial.begin(9600);
+  
   // initialize serial for ESP module
   Serial1.begin(9600);
   // initialize ESP module
