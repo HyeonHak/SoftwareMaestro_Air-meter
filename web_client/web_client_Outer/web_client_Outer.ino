@@ -153,7 +153,7 @@ void loop()
     
     Serial1.listen();
     
-  String str = "GET http://192.168.0.9:3000?tempOuter=";
+  String str = "GET http://192.168.1.84:3000?tempOuter=";
     str+=tc;
     str+="&humidOuter=";
     str+=h;
